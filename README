@@ -1,0 +1,24 @@
+Deploy helps in the processes of running scripts on multiple hosts.
+
+Running Deploy requires 2 parts. The config file that defines the connection
+command and the script to run on the hosts.
+
+The config file is a json file with the following fields:
+	Cmd : Array of strings specifying the connection command.
+		The special string {{HOST}} will be replaced with the hostname
+		specified by the Host key.
+	Hosts : Array of strings specifying the hosts to run the script on.
+	Script : String specifying the location of the script to run on each host.
+
+As an example the following is a valid configuration file:
+{
+        "Cmd": ["ssh", "root@{{HOST}}", "sh"],
+        "Hosts": ["vpn", "irc"],
+        "Script": "./deploy.sh"
+}
+
+Run deploy by just specifying one or more configuration files.
+Ex.
+	; ./deploy vms.json
+
+Scripts are run concurrently with output being sent back to the host.
